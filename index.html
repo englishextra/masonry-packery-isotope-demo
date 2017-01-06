@@ -388,9 +388,6 @@ u,
 	text-decoration: underline;
 }
 		</style>
-        <!--[if lte IE 9]>
-			<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-        <![endif]-->
 	</head>
 	<body>
 		<div class="page" id="page" role="document">
@@ -500,7 +497,7 @@ var manageDataSrcImg = function (ctx) {
 	var w = window,
 	d = document,
 	cls = "img[data-src]",
-	a = ctx ? d.querySelector(cls, ctx) || "" : d.querySelector(cls) || "",
+	a = ctx ? ctx.querySelector(cls) || "" : d.querySelector(cls) || "",
 	ds = "dataset",
 	pN = "parentNode",
 	g = function (e) {
@@ -515,7 +512,7 @@ var manageDataSrcImg = function (ctx) {
 	};
 	if (a) {
 		console.log("triggered function: manageDataSrcImg");
-		a = ctx ? d.querySelectorAll(cls, ctx) || "" : d.querySelectorAll(cls) || "";
+		a = ctx ? ctx.querySelectorAll(cls) || "" : d.querySelectorAll(cls) || "";
 		if (w._) {
 			_.each(a, g);
 		} else if (w.forEach) {
