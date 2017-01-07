@@ -3,4 +3,6 @@
 
 See the source code, feel free to modify it.
 
-[Live Demo](https://codepen.io/englishextra/pen/mRJxwR)
+[Codepen](https://codepen.io/englishextra/pen/mRJxwR)
+
+[JSFddle](https://jsfiddle.net/englishextra/za4634b2/)
