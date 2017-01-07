@@ -487,12 +487,15 @@ u,
 				</div>
 			</div>
 		</div>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/lazyloadjs/3.2.2/lazyload.min.js"></script>
+		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/lazyloadjs/3.2.2/lazyload.min.js"></script> -->
 		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/4.1.1/masonry.pkgd.min.js"></script> -->
 		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/packery/2.1.1/packery.pkgd.min.js"></script> -->
 		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/draggabilly/2.1.1/draggabilly.pkgd.min.js"></script> -->
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.1/isotope.pkgd.min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js"></script>
+		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.1/isotope.pkgd.min.js"></script> -->
+		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js"></script> -->
+		<script>
+			;(function(){var loadJS=function(_src,callback){"use strict";var ref=document.getElementsByTagName("script")[0];var script=document.createElement("script");script.src=_src;script.async=true;ref.parentNode.insertBefore(script,ref);if(callback&&"function"===typeof callback){script.onload=callback;}return script;};("undefined"!==typeof window?window:this).loadJS=loadJS;}());
+		</script>
 		<script>
 /*!
  * replace img src with data-src
@@ -530,8 +533,12 @@ var manageDataSrcImg = function (ctx) {
 			}
 		}
 	}
+},
+loadManageDataSrcImg = function () {
+	"use strict";
+	loadJS("//cdnjs.cloudflare.com/ajax/libs/lazyloadjs/3.2.2/lazyload.min.js", manageDataSrcImg.bind(null, ""));
 };
-window.addEventListener("load", manageDataSrcImg.bind(null, ""));
+window.addEventListener("load", loadManageDataSrcImg);
 /*!
  * init masonry
  */
@@ -684,8 +691,20 @@ var initMasonry = function (ctx) {
 		}
 	};
 	var st = setTimeout(g, 100);
+},
+loadInitMasonry = function () {
+	"use strict";
+	/* loadJS("//cdnjs.cloudflare.com/ajax/libs/masonry/4.1.1/masonry.pkgd.min.js",
+		loadJS("//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js", initMasonry.bind(null, ""))); */
+	/* loadJS("//cdnjs.cloudflare.com/ajax/libs/packery/2.1.1/packery.pkgd.min.js",
+		loadJS("//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js", initMasonry.bind(null, ""))); */
+	/* loadJS("//cdnjs.cloudflare.com/ajax/libs/packery/2.1.1/packery.pkgd.min.js",
+		loadJS("//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js",
+			loadJS("//cdnjs.cloudflare.com/ajax/libs/draggabilly/2.1.1/draggabilly.pkgd.min.js", initMasonry.bind(null, "")))); */
+	loadJS("//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.1/isotope.pkgd.min.js",
+		loadJS("//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js", initMasonry.bind(null, "")));
 };
-window.addEventListener("load", initMasonry.bind(null, ""));
+window.addEventListener("load", loadInitMasonry);
 		</script>
 	</body>
 </html>
