@@ -488,9 +488,10 @@ u,
 			</div>
 		</div>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/lazyloadjs/3.2.2/lazyload.min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/masonry/4.1.1/masonry.pkgd.min.js"></script>
+		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/4.1.1/masonry.pkgd.min.js"></script> -->
 		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/packery/2.1.1/packery.pkgd.min.js"></script> -->
-		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.1/isotope.pkgd.min.js"></script> -->
+		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/draggabilly/2.1.1/draggabilly.pkgd.min.js"></script> -->
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.1/isotope.pkgd.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js"></script>
 		<script>
 /*!
@@ -543,6 +544,7 @@ var initMasonry = function (ctx) {
 	h = ".masonry-grid-item",
 	k = ".masonry-grid-sizer",
 	a = ctx ? ctx.querySelector(cls) || "" : d.querySelector(cls) || "",
+	c = ctx ? ctx.querySelector(h) || "" : d.querySelector(h) || "",
 	cls1 = ".holder-filter-buttons",
 	holder_btns = ctx ? ctx.querySelector(cls1) || "" : d.querySelector(cls1) || "",
 	cls2 = ".holder-filter-buttons button[data-filter]",
@@ -568,11 +570,13 @@ var initMasonry = function (ctx) {
 					percentPosition: !0,
 				});
 			console.log("function initMasonry => initialised iso");
-			imgLoad = imagesLoaded(a);
-			imgLoad.on("progress", function (instance) {
-				iso.layout();
-				console.log("function initMasonry => reinitialised iso");
-			});
+			if (w.imagesLoaded) {
+				imgLoad = imagesLoaded(a);
+				imgLoad.on("progress", function (instance) {
+					iso.layout();
+					console.log("function initMasonry => reinitialised iso");
+				});
+			}
 			var h_btns = function (e) {
 				iso.arrange({
 					filter: e.dataset.filter
@@ -621,11 +625,13 @@ var initMasonry = function (ctx) {
 					percentPosition: !0
 				});
 			console.log("function initMasonry => initialised msnry");
-			imgLoad = imagesLoaded(a);
-			imgLoad.on("progress", function (instance) {
-				msnry.layout();
-				console.log("function initMasonry => reinitialised msnry");
-			});
+			if (w.imagesLoaded) {
+				imgLoad = imagesLoaded(a);
+				imgLoad.on("progress", function (instance) {
+					msnry.layout();
+					console.log("function initMasonry => reinitialised msnry");
+				});
+			}
 			if (holder_controls) {
 				holder_controls.classList.remove("visible");
 			}
@@ -637,11 +643,39 @@ var initMasonry = function (ctx) {
 					percentPosition: !0
 				});
 			console.log("function initMasonry => initialised pckry");
-			imgLoad = imagesLoaded(a);
-			imgLoad.on("progress", function (instance) {
-				pckry.layout();
-				console.log("function initMasonry => reinitialised pckry");
-			});
+			if (w.imagesLoaded) {
+				imgLoad = imagesLoaded(a);
+				imgLoad.on("progress", function (instance) {
+					pckry.layout();
+					console.log("function initMasonry => reinitialised pckry");
+				});
+			}
+			if (c) {
+				c = ctx ? ctx.querySelectorAll(h) || "" : d.querySelectorAll(h) || "";
+				if (w.Draggabilly) {
+					var draggie,
+					f = function (e) {
+						var draggableElem = e;
+						draggie = new Draggabilly(draggableElem, {});
+						draggies.push(draggie);
+						console.log("function initMasonry => initialised draggie");
+					},
+					draggies = [];
+					if (w._) {
+						_.each(c, f);
+					} else if (w.forEach) {
+						forEach(c, f, !1);
+					} else {
+						for (var i = 0, l = c.length; i < l; i += 1) {
+							f(c[i]);
+						}
+					}
+					if (pckry && draggie) {
+						pckry.bindDraggabillyEvents(draggie);
+						console.log("function initMasonry => binded draggie to pckry");
+					}
+				}
+			}
 			if (holder_controls) {
 				holder_controls.classList.remove("visible");
 			}
